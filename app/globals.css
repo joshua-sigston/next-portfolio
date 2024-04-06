@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+h1, h2, h3 {
+  font-family: var(--ubuntu-font);
+}
+
+p {
+  font-family: var(--manrope-font);
+}
+
+button, a {
+  font-family: var(--tilt_neon-font);
+}

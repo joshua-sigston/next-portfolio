@@ -1,16 +1,20 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Image from 'next/image';
+import NavLink from './NavLink';
+import SocialLinks from './SocialLinks';
+import Hamburger from './Hamburger';
+import { delay, motion } from 'framer-motion';
+import MobileLinks from './MobileLinks';
+
+const links = [
+  { url: '/', title: 'Home' },
+  { url: '/about', title: 'About' },
+  { url: '/portfolio', title: 'Portfolio' },
+  { url: '/contact', title: 'Contact' },
+];
 
 export default function Navigation() {
-  const links = [
-    { url: '/', title: 'Home' },
-    { url: '/about', title: 'About' },
-    { url: '/portfolio', title: 'Portfolio' },
-    { url: '/contact', title: 'Contact' },
-  ];
-
   const [menu, setMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -18,7 +22,7 @@ export default function Navigation() {
   };
 
   return (
-    <header className="p-3 max-w-[900px] mx-auto">
+    <header className="p-3 max-w-[1200px] mx-auto">
       <nav className="flex justify-between links-center">
         <div className="md:hidden">
           <Link href="/">
@@ -28,35 +32,30 @@ export default function Navigation() {
         </div>
         <div className="hidden md:flex gap-5">
           {links.map((link, index) => (
-            <Link
-              href={link.url}
-              key={index}
-              onClick={toggleMenu}
-              className="text-black"
-            >
-              {link.title}
-            </Link>
+            <NavLink url={link.url} title={link.title} key={index} />
           ))}
         </div>
-        <div className="space-y-2 md:hidden" onClick={toggleMenu}>
-          <div className="h-[5px] w-[40px] bg-black rounded-lg"></div>
-          <div className="h-[5px] w-[40px] bg-black rounded-lg"></div>
-          <div className="h-[5px] w-[40px] bg-black rounded-lg"></div>
+        <Hamburger toggleMenu={toggleMenu} menu={menu} />
+        <div className="hidden md:flex">
+          <SocialLinks />
         </div>
-        <div className="hidden md:flex gap-5">
-          <Image src="/linkedin.png" alt="" width={24} height={24} />
-          <Image src="/github.png" alt="" width={24} height={24} />
-          <Image src="/instagram.png" alt="" width={24} height={24} />
-        </div>
-        {menu && (
-          <div className="absolute top-0 left-0 w-screen h-screen bg-[#0B1623] text-white text-4xl flex flex-col items-center justify-center gap-10">
+        {menu && <MobileLinks links={links} toggleMenu={toggleMenu} />}
+        {/* {menu && (
+          <motion.div
+            className="absolute top-0 left-0 w-screen h-screen bg-[#0B1623] text-white text-4xl flex flex-col items-center justify-center gap-10"
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+          >
             {links.map((link, index) => (
-              <Link href={link.url} key={index} onClick={toggleMenu}>
-                {link.title}
-              </Link>
+              <motion.div variants={linkVariants}>
+                <Link href={link.url} key={index} onClick={toggleMenu}>
+                  {link.title}
+                </Link>
+              </motion.div>
             ))}
-          </div>
-        )}
+          </motion.div>
+        )} */}
       </nav>
     </header>
   );

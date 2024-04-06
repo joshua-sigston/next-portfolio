@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { ubuntu, tilt_neon, manrope } from './fonts';
 import './globals.css';
 import Navigation from './components/Navigation';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,8 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="w-screen h-screen bg-gradient-to-b from-blue-50 to-red-100">
+      <body
+        className={`${ubuntu.variable} ${manrope.variable} ${tilt_neon.variable}`}
+        suppressHydrationWarning={true}
+      >
+        <main className="w-screen h-screen bg-gradient-to-b from-blue-50 to-red-100 p-3 overflow-hidden">
           <Navigation />
           {children}
         </main>
